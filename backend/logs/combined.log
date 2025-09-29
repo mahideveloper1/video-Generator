@@ -1,0 +1,8 @@
+{"level":"info","message":"Server running on port 3001","service":"video-generation-backend","timestamp":"2025-09-28T15:01:09.929Z"}
+{"level":"info","message":"Environment:","service":"video-generation-backend","timestamp":"2025-09-28T15:01:09.934Z"}
+{"level":"info","message":"Connected to PostgreSQL database","service":"video-generation-backend","timestamp":"2025-09-28T15:01:12.695Z"}
+{"level":"info","message":"Server running on port 3001","service":"video-generation-backend","timestamp":"2025-09-28T15:11:45.104Z"}
+{"level":"info","message":"Environment:","service":"video-generation-backend","timestamp":"2025-09-28T15:11:45.109Z"}
+{"level":"info","message":"Server running on port 3001","service":"video-generation-backend","timestamp":"2025-09-28T15:11:57.893Z"}
+{"level":"info","message":"Environment:","service":"video-generation-backend","timestamp":"2025-09-28T15:11:57.897Z"}
+{"level":"info","message":"Connected to PostgreSQL database","service":"video-generation-backend","timestamp":"2025-09-28T15:12:00.615Z"}
