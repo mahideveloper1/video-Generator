@@ -45,14 +45,14 @@ A full-stack application that generates personalized videos with AI-powered voic
 Your project contains a frontend folder and backend folder
 
 # Backend repo
-cd backend
-npm install
-npm run dev
+- cd backend
+- npm install
+- npm run dev
 
 # Frontend repo
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev
 
 # running from docker 
 docker-compose up --build
@@ -60,23 +60,24 @@ docker-compose up --build
 # set up .env file in root folder and backend folder
 
 # ElevenLabs
-ELEVENLABS_API_KEY=your_elevenlabs_api_key
-ELEVENLABS_VOICE_ID=your_voice_id
+- ELEVENLABS_API_KEY=your_elevenlabs_api_key
+- ELEVENLABS_VOICE_ID=your_voice_id
 
 # SyncLabs
-SYNCLABS_API_KEY=your_synclabs_api_key
-BASE_VIDEO_URL=https://example.com/video.mp4
+- SYNCLABS_API_KEY=your_synclabs_api_key
+- BASE_VIDEO_URL=https://example.com/video.mp4
 
 # Twilio WhatsApp
-TWILIO_ACCOUNT_SID=your_twilio_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
+- TWILIO_ACCOUNT_SID=your_twilio_sid
+- TWILIO_AUTH_TOKEN=your_twilio_auth_token
+- TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
 
 # Database
 DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require&channel_binding=require"
 
 # Server
-NODE_ENV=production
-PORT=3001
-BASE_URL=http://localhost:3001
-NEXT_PUBLIC_API_URL=http://localhost:3001
+- NODE_ENV=production
+- PORT=3001
+- BASE_URL=http://localhost:3001
+
+- NEXT_PUBLIC_API_URL=http://localhost:3001
