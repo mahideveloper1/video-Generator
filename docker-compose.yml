@@ -1,0 +1,79 @@
+# docker-compose.yml (place in ROOT directory)
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: video-gen-db
+    environment:
+      POSTGRES_USER: videouser
+      POSTGRES_PASSWORD: videopass
+      POSTGRES_DB: videogeneration
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - video-gen-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U videouser -d videogeneration"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: video-gen-backend
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://videouser:videopass@postgres:5432/videogeneration
+      BASE_URL: http://localhost:3001
+      
+      # API Keys from .env file
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+      ELEVENLABS_VOICE_ID: ${ELEVENLABS_VOICE_ID:-JBFqnCBsd6RMkjVDRZzb}
+      SYNCLABS_API_KEY: ${SYNCLABS_API_KEY}
+      BASE_VIDEO_URL: ${BASE_VIDEO_URL:-https://assets.sync.so/docs/example-video.mp4}
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_WHATSAPP_NUMBER: ${TWILIO_WHATSAPP_NUMBER}
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - video-gen-network
+    command: >
+      sh -c "npx prisma migrate deploy && 
+             npm start"
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: video-gen-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - video-gen-network
+
+volumes:
+  postgres_data:
+
+networks:
+  video-gen-network:
+    driver: bridge
